@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Flask specific
+instance/
+.flaskenv
+
+# Database
+*.db # For SQLite database files like data_tracker.db
+
+# Environment variables (if you create a .env file later)
+.env
+
+# IDE specific files (e.g., VS Code)
+.vscode/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
