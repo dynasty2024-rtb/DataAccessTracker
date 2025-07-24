@@ -33,7 +33,13 @@ Follow these steps to get the Data Access Tracker up and running on your local m
 
 Ensure your project directory is set up as follows:
 
-data-access-tracker/ ├── app.py ├── instance/ │ └── data_tracker.db ├── static/ │ └── style.css ├── templates/ │ ├── base.html │ ├── index.html │ ├── login.html │ └── history.html ├── utils/ │ ├── app.py │ └── config.py ├── README.md └── requirements.txt
+data-access-tracker/ \
+├── app.py \
+└── templates/ \
+    ├── base.html \
+    ├── index.html \
+    ├── login.html \
+    └── history.html \
 
 
 
