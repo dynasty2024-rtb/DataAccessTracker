@@ -10,9 +10,7 @@ import os
 app = Flask(__name__)
 
 # Configuration
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_very_secret_key_that_should_be_changed')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data_tracker.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_pyfile('config.py')
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
