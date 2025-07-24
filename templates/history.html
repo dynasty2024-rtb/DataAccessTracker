@@ -1,0 +1,72 @@
+<!-- templates/history.html -->
+{% extends "base.html" %}
+
+{% block title %}Access History - Data Access Tracker{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-xl mb-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Access History</h2>
+
+    <form method="GET" action="{{ url_for('history') }}" class="mb-8 p-6 bg-gray-50 rounded-lg shadow-inner space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label for="user_id" class="block text-gray-700 text-sm font-semibold mb-2">Filter by User:</label>
+                <select id="user_id" name="user_id"
+                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-200">
+                    <option value="all">All Users</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {% if selected_user_id and selected_user_id|int == user.id %}selected{% endif %}>
+                            {{ user.username }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="start_date" class="block text-gray-700 text-sm font-semibold mb-2">Start Date:</label>
+                <input type="date" id="start_date" name="start_date"
+                       value="{{ selected_start_date if selected_start_date }}"
+                       class="shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 transition duration-200">
+            </div>
+            <div>
+                <label for="end_date" class="block text-gray-700 text-sm font-semibold mb-2">End Date:</label>
+                <input type="date" id="end_date" name="end_date"
+                       value="{{ selected_end_date if selected_end_date }}"
+                       class="shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 transition duration-200">
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <button type="submit"
+                    class="px-6 py-3 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 shadow-lg">
+                Apply Filters
+            </button>
+        </div>
+    </form>
+
+    {% if access_logs %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Dataset</th>
+                    <th>Access Time</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in access_logs %}
+                <tr>
+                    <td>{{ log.user.username }}</td>
+                    <td>{{ log.dataset.name }}</td>
+                    <td>{{ log.access_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{ log.purpose }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center text-gray-600 text-lg mt-10">No access logs found matching your criteria.</p>
+    {% endif %}
+</div>
+{% endblock %}

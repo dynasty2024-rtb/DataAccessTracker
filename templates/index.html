@@ -1,0 +1,34 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Data Access Tracker{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-xl mb-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Log Data Access</h2>
+    <form method="POST" action="{{ url_for('log_access') }}" class="space-y-6">
+        <div>
+            <label for="dataset" class="block text-gray-700 text-sm font-semibold mb-2">Select Dataset:</label>
+            <select id="dataset" name="dataset" required
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-200">
+                <option value="">-- Choose a Dataset --</option>
+                {% for dataset in datasets %}
+                    <option value="{{ dataset.id }}">{{ dataset.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="purpose" class="block text-gray-700 text-sm font-semibold mb-2">Purpose of Access:</label>
+            <textarea id="purpose" name="purpose" rows="4" required
+                      class="shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-3 transition duration-200"
+                      placeholder="e.g., 'Auditing Q2 sales figures', 'Debugging user profile issue'"></textarea>
+        </div>
+        <div class="flex justify-center">
+            <button type="submit"
+                    class="px-6 py-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 shadow-lg">
+                Log Access
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
